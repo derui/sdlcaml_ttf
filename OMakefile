@@ -1,0 +1,11 @@
+if $(file-exists OMakeroot)
+   include MyOCaml
+   export
+
+.SUBDIRS: src
+
+# mark file confined directory path.
+INSTALLED = $(BIG_ROOT)/installed
+
+setup.ml: _oasis
+	oasis setup
