@@ -1,0 +1,38 @@
+.PHONY: all
+open configure/Configure
+
+static. = 
+    ConfMsgChecking(for SDL2_ttf...)
+    success = CheckCLib(libSDL2_ttf, TTF_Init)
+
+    if $(success)
+      ConfMsgResult(ok)
+    else
+      ConfMsgError(not found)
+
+USE_OCAMLFIND = true
+OCAMLPACKS[] =
+   ctypes
+   ctypes.foreign
+   sdlcaml
+
+NATIVE_ENABLED = $(OCAMLOPT_EXISTS)
+BYTE_ENABLED = true
+
+if $(not $(OCAMLFIND_EXISTS))
+    eprintln(This project requires ocamlfind, but it was not found.)
+    eprintln(You need to install ocamlfind and run "omake --configure")
+    exit 1
+
+OCAMLFLAGS += -thread -bin-annot
+OCAMLOPTFLAGS += -warn-error -58
+
+LIB = sdlcaml_ttf
+FILES[] = $(removesuffix $(ls *.ml))
+
+MyOCamlPackage($(LIB), $(FILES), $(EMPTY), $(EMPTY), -linkall)
+public.TARGET = $(OCamlPackageGeneratedFiles $(LIB), false)
+
+all: $(TARGET)
+
+.DEFAULT: all
