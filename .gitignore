@@ -37,3 +37,7 @@
 
 # installed information
 installed/
+/src/sdlcaml_ttf_generated_types.ml
+/stub/ffi_ml_types_stubgen
+/stub/ffi_ml_types_stubgen.c
+/stub/gen-type-stub

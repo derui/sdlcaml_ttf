@@ -1,0 +1,42 @@
+open build/C
+
+.PHONY: clean stub
+
+USE_OCAMLFIND = true
+OCAMLPACKS[] =
+	ctypes
+	ctypes.foreign
+	ctypes.stubs
+#
+if $(not $(OCAMLFIND_EXISTS))
+    eprintln(This project requires ocamlfind, but is was not found.)
+    eprintln(You need to install ocamlfind and run "omake --configure".)
+    exit 1
+
+OCAMLINCLUDES += ../src
+
+NATIVE_ENABLED = $(OCAMLOPT_EXISTS)
+BYTE_ENABLED = true
+
+OCAMLFLAGS    +=
+OCAMLCFLAGS   +=
+OCAMLOPTFLAGS += -warn-error -58
+
+.DEFAULT: stub
+
+INCLUDES += $(shell ocamlfind query ctypes.stubs) $(shell ocamlfind query stdlib)
+CFLAGS += $(shell sdl2-config --cflags)
+
+OCamlProgram(gen-type-stub, generate_types ../src/sdlcaml_ttf_bindings)
+CProgram(ffi_ml_types_stubgen, ffi_ml_types_stubgen)
+ffi_ml_types_stubgen.c: gen-type-stub$(EXE)
+	./gen-type-stub$(EXE) > $@
+
+../src/sdlcaml_ttf_generated_types.ml: ffi_ml_types_stubgen$(EXE)
+	./ffi_ml_types_stubgen$(EXE) > $@
+
+stub: ../src/sdlcaml_ttf_generated_types.ml
+
+clean:
+	rm -f ffi_ml_type_stubgen.*
+	rm -f ../src/sdlcaml_ttf_generated_types.ml
