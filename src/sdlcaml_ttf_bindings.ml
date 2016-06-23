@@ -10,4 +10,10 @@ module Types (F: Cstubs.Types.TYPE) = struct
     let normal = F.constant "TTF_STYLE_NORMAL" F.int
   end
 
+  module Ttf_hinting_type = struct
+    let normal = F.constant "TTF_HINTING_NORMAL" F.int
+    let light = F.constant "TTF_HINTING_LIGHT" F.int
+    let mono = F.constant "TTF_HINTING_MONO" F.int
+    let none = F.constant "TTF_HINTING_NONE" F.int
+  end
 end

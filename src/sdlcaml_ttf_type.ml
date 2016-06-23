@@ -30,5 +30,32 @@ module Style = struct
     | s when s = T.Ttf_style_type.strikethrough -> Strikethrough
     | s when s = T.Ttf_style_type.underline -> Underline
     | _ -> failwith "No any style of TTF Font"
+
+  let to_int = function
+    | Bold -> T.Ttf_style_type.bold
+    | Italic -> T.Ttf_style_type.italic
+    | Normal -> T.Ttf_style_type.normal
+    | Strikethrough -> T.Ttf_style_type.strikethrough
+    | Underline -> T.Ttf_style_type.underline
 end 
 
+module Hinting = struct
+  type t =
+      Normal
+    | Light
+    | Mono
+    | None
+
+  let of_int = function
+    | s when s = T.Ttf_hinting_type.normal -> Normal
+    | s when s = T.Ttf_hinting_type.light -> Light
+    | s when s = T.Ttf_hinting_type.mono -> Mono
+    | s when s = T.Ttf_hinting_type.none -> None
+    | _ -> failwith "No any hinting of TTF Font"
+
+  let to_int = function
+    | Normal -> T.Ttf_hinting_type.normal
+    | Light -> T.Ttf_hinting_type.light
+    | Mono -> T.Ttf_hinting_type.mono
+    | None -> T.Ttf_hinting_type.none
+end 
