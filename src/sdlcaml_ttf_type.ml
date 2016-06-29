@@ -59,3 +59,14 @@ module Hinting = struct
     | Mono -> T.Ttf_hinting_type.mono
     | None -> T.Ttf_hinting_type.none
 end 
+
+module Glyph_metrics = struct
+  type t = {
+    ch: Uchar.t;
+    minx: int;
+    maxx: int;
+    miny: int;
+    maxy: int;
+    advance: int;
+  }
+end
