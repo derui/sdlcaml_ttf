@@ -1,0 +1,7 @@
+version = "0.1"
+description = "SDL_ttf bindings for OCaml"
+requires = "ctypes sdlcaml ctypes.foreign"
+archive(byte) = "sdlcaml_ttf.cma"
+archive(byte, plugin) = "sdlcaml_ttf.cma"
+archive(native) = "sdlcaml_ttf.cmxa"
+exists_if = "sdlcaml_ttf.cma"
