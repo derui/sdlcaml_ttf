@@ -8,7 +8,7 @@ module Inner = struct
   let quit = foreign "TTF_Quit" (void @-> returning void)
 end
 
-let init =
+let init () =
   let ret = Inner.init () in
   match ret with
   | 1 | 0 -> S.Types.Result.return ()
