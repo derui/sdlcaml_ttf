@@ -29,6 +29,7 @@ OCAMLOPTFLAGS += -warn-error -58
 
 LIB = sdlcaml_ttf
 FILES[] = $(removesuffix $(ls *.ml))
+FILES[] += sdlcaml_ttf_generated_types
 
 MyOCamlPackage($(LIB), $(FILES), $(EMPTY), $(EMPTY), -linkall)
 public.TARGET = $(OCamlPackageGeneratedFiles $(LIB), false)
